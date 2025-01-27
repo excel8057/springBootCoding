@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>exam04Bean 문서 내용</title>
+	</head>
+	<body>
+		<h3>SampleDTOList 필드의 list 값 출력</h3>
+		<div>
+			<th:block th:each="list : ${sampleDTOList.list}">
+				<p th:text="${list.name + ' ' + list.age}"></p>
+				<p th:text="|${list.name}  ${list.age}|"></p>
+			</th:block>
+		</div>
+	</body>
+</html> 

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>exam04Array 문서 내용</title>
+	</head>
+	<body>
+		<h5>나의 취미</h5>
+		<ul>
+			<li th:each="hobby : ${hobbyList}" th:text="${hobby}"></li>
+		</ul>
+	</body>
+</html> 
