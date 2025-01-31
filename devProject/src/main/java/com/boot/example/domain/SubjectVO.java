@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExampleVO {
+public class SubjectVO {
 	private int no;
-	private String name;
-	private String phone;
+	private String subjectNumber;
+	private String subjectName;
+	private String deleteable;
 }
