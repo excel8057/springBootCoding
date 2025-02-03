@@ -10,4 +10,9 @@
 	<select id="subjectList" resultMap="subjectMap">
 		select no, s_num, s_name from subject order by no
 	</select>
+	
+	<select id="subjectNumber" resultType="String">
+		select nvl(lpad(max(to_number(Ltrim(s_num,'0')))+1,2,'0'),'01')
+		as s_num from subject
+	</select>
 </mapper>
