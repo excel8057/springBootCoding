@@ -30,7 +30,7 @@ public class ExampleController {
 	@GetMapping("/test")
 	public String test(Model model) {
 		model.addAttribute("data1", "뷰에 출력할 데이터");
-		model.addAttribute("data2", "뷰에 출력할 <strong>데이터</strong>");
+		model.addAttribute("data2", "뷰에 출력할 <strong>ㅁㄴㅇㄻㄴㅇㄹ</strong>");
 		
 		model.addAttribute("nullData", null);
 	    model.addAttribute("data", "Spring!");
