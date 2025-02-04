@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.example.dao.StudentDAO">
+
+	<resultMap type="StudentVO" id="studentMap">
+		<id column="no" property="no"  />
+		<result column="sd_num" property="studentNumber" />
+		<result column="sd_name" property="studentName"/>
+		<result column="sd_id" property="studentId" />
+		<result column="sd_passwd" property="studentPasswd" />
+		<result column="sd_birth" property="studentBirth" />
+		<result column="sd_phone" property="studentPhone" />
+		<result column="sd_address" property="studentAddress" />
+		<result column="sd_email" property="studentEmail" />
+		<result column="sd_date" property="regDate" />
+		<association property="subject">
+			<result column="s_num" property="subjectNumber" />
+			<result column="s_name" property="subjectName" />
+		</association>
+	</resultMap>
+	
+	<select id="studentList" resultMap="studentMap">
+		SELECT st.no as no, sd_num, sd_name, sd_id, sd_birth, sd_phone, 
+			   sd_address, sd_email, sd_date, su.s_num as s_num, s_name
+		FROM student st INNER JOIN subject su
+		ON st.s_num = su.s_num 
+		ORDER BY st.no
+	</select>
+	
+	<select id="studentAutoNumber" parameterType="String" resultType="String">
+		SELECT TO_CHAR(sysdate,'YY') || s_num  || 
+	    	   LPAD(NVL(MAX(TO_NUMBER(SUBSTR(sd_num, 5))), 0) + 1, 4, '0') as studentnumber
+		FROM subject LEFT OUTER JOIN student
+		USING(s_num)
+		WHERE s_num = #{subjectNumber} 
+		GROUP BY s_num
+	</select>
+	
+	<select id="studentIdCheck" parameterType="StudentVO" resultType="int">
+		SELECT NVL((SELECT 1 FROM student WHERE sd_id = #{studentId}), 0) as result FROM dual
+	</select>
+		
+	<insert id="studentInsert" parameterType="StudentVO">
+		INSERT INTO student(no, sd_num, sd_name, sd_id, sd_passwd, s_num, sd_birth, sd_phone, sd_address, sd_email) 
+		VALUES(student_seq.nextval, #{studentNumber}, #{studentName}, #{studentId}, #{studentPasswd}, #{subject.subjectNumber}, #{studentBirth}, #{studentPhone}, #{studentAddress}, #{studentEmail})
+	</insert>
+	
+	<update id="studentUpdate" parameterType="SubjectVO">
+		update subject set s_name = #{subjectName}
+		where no = #{no}
+	</update>
+
+</mapper>
